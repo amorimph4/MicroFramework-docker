@@ -100,22 +100,24 @@ class ProductsController extends BaseController
         ];
 
         try{
+            if (isset($request->post->category_id) && 0 < count($request->post->category_id)) {
 
-            $categorys_product = $this->product_categorys->findBy(['product_id' => $id], 'category_id', true);
+                $categorys_product = $this->product_categorys->findBy(['product_id' => $id], 'category_id', true);
+                
+                foreach ($categorys_product as $category) {
+                    if (!in_array($category->category_id,$request->post->category_id)) {
+                        $this->product_categorys->deleteBy(
+                            ['product_id' => $id,
+                            'category_id' => $category->category_id]);
+                    }
 
-            foreach ($categorys_product as $category) {
-                if (!in_array($category->category_id,$request->post->category_id)) {
-                    $this->product_categorys->deleteBy(
-                        ['product_id' => $id,
-                        'category_id' => $category->category_id]);
+                    $product_categorys[] = $category->category_id;
                 }
 
-                $product_categorys[] = $category->category_id;
-            }
-
-            foreach ($request->post->category_id as $reqCategory) {
-                if (!in_array($reqCategory, $product_categorys)) {
-                    $this->product_categorys->create(['product_id' => $id,'category_id' => $reqCategory]);
+                foreach ($request->post->category_id as $reqCategory) {
+                    if (!in_array($reqCategory, $product_categorys)) {
+                        $this->product_categorys->create(['product_id' => $id,'category_id' => $reqCategory]);
+                    }
                 }
             }
 
