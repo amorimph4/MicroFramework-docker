@@ -1,4 +1,5 @@
 ### Instruções ###
+	cp .env.sample .env
 	docker-compose up -d
 	docker exec webjumpapp composer install
 
