@@ -9,8 +9,8 @@ Partindo do principio que tenha docker e docker-compose instalado na sua máquin
 	https://docs.docker.com/compose/install/
 
 ### Requisitos da Aplicação ###
-	* PHP 7.0
-	* Banco de dados (mysql)
+	* PHP >= 7.0
+	* Banco de dados (mysql) 5.7
 
 
 ### APP ###

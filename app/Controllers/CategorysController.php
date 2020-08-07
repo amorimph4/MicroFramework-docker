@@ -96,7 +96,6 @@ class CategorysController extends BaseController
     public function delete($id)
     {
         try{
-            //deletar o rgistro na tabela auxiliar antes
             if($this->categorys->delete($id)){
                 return Redirect::route('/categorys', [
                     'success' => ['Categoria deleteda!']
